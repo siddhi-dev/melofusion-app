@@ -38,54 +38,54 @@ class MusicController extends Controller
      * Converts Youtube URL to MP3 and adds to music list
      */
     public function convert()
-{
-    $filename = str_replace(' ', '_', request('song_name'));
+    {
+        $filename = str_replace(' ', '_', request('song_name'));
 
-    // Run the shell command to download and convert the video
-    shell_exec("youtube-dl -x -o ./music/\"" . $filename . ".%(ext)s\" --audio-format mp3 " . request('youtube_url'));
+        // Run the shell command to download and convert the video
+        shell_exec("youtube-dl -x -o ./music/\"" . $filename . ".%(ext)s\" --audio-format mp3 " . request('youtube_url'));
 
-    // Initialize getID3
-    $getID3 = new \getID3();
-    
-    // Analyze the audio file
-    $fileInfo = $getID3->analyze(public_path('music/') . $filename . ".mp3");
+        // Initialize getID3
+        $getID3 = new \getID3();
+        
+        // Analyze the audio file
+        $fileInfo = $getID3->analyze(public_path('music/') . $filename . ".mp3");
 
-    // Check if the 'playtime_string' key exists
-    $duration = isset($fileInfo['playtime_string']) ? $fileInfo['playtime_string'] : 'Unknown';
+        // Check if the 'playtime_string' key exists
+        $duration = isset($fileInfo['playtime_string']) ? $fileInfo['playtime_string'] : 'Unknown';
 
-    // Store the song information
-    Song::create([
-        'name' => request('song_name'),
-        'filename' => $filename . ".mp3",
-        'length' => $duration
-    ]);
+        // Store the song information
+        Song::create([
+            'name' => request('song_name'),
+            'filename' => $filename . ".mp3",
+            'length' => $duration
+        ]);
 
-    return redirect()->route('show.index');
-}
+        return redirect()->route('show.index');
+    }
 
 
     /**
      * Delete song from playlist
      */
     public function delete(Song $song)
-{
-    // Ensure the song exists before attempting to delete
-    if ($song) {
-        // Delete the song from the database
-        $song->delete();
+    {
+        // Ensure the song exists before attempting to delete
+        if ($song) {
+            // Delete the song from the database
+            $song->delete();
 
-        // Check if the file exists before attempting to delete it
-        $filePath = public_path('music/') . $song->filename;
-        if (file_exists($filePath)) {
-            unlink($filePath); // Delete the file from the server
+            // Check if the file exists before attempting to delete it
+            $filePath = public_path('music/') . $song->filename;
+            if (file_exists($filePath)) {
+                unlink($filePath); // Delete the file from the server
+            }
+
+            // Optionally, handle additional cleanup or log file deletion
+            // \Log::info("Deleted song file: " . $filePath);
         }
 
-        // Optionally, handle additional cleanup or log file deletion
-        // \Log::info("Deleted song file: " . $filePath);
+        return redirect()->route('show.index');
     }
-
-    return redirect()->route('show.index');
-}
 
     /**
      * Update song from playlist
