@@ -1,0 +1,247 @@
+
+// ---------- Imports ----------
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+
+@import "variables";
+
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+// ---------- Styles ----------
+html, body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  background-color: $dark-grey;
+}
+
+.grey {
+  color: $light-grey;
+  font-weight: normal;
+}
+
+input {
+  background-color: #3a3939 !important;
+  border-color: #3a3939 !important;
+  box-shadow: none !important;
+  color: white !important;
+}
+
+button {
+  color: white;
+  background-color: $accent;
+
+  &:active, &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.fa-btn {
+  background: none;
+  border: none;
+}
+
+.navbar-fixed-top {
+  background-color: $accent;
+  height: 55px;
+
+  .navbar-header {
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    h3 {
+      margin-top: 16px;
+      color: white;
+    }
+  }
+
+  .play-btn, .pause-btn {
+    border: 4px solid white;
+    border-radius: 30px;
+    background: none;
+    color: white;
+    font-size: 20px;
+    padding-left: 13px;
+    padding-right: 11px;
+  }
+
+  .pause-btn {
+    padding-left: 12px;
+  }
+
+  .next-btn, .prev-btn {
+    background: none;
+    color: white;
+    font-size: 30px;
+  }
+
+  .upload-btn {
+    background: none;
+    color: white;
+    font-size: 25px;
+    float: right;
+    padding-right: 0;
+    margin-top: 3px;
+  }
+}
+
+.content {
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+.converter {
+  margin-bottom: 95px;
+
+  button {
+    float: right;
+    margin-top: 25px;
+
+    &:hover {
+      color: $dark-grey !important;
+    }
+  }
+}
+
+.music-list {
+  ul {
+    padding: 0;
+
+    .list-group-item {
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+
+      .empty {
+        color: white;
+        background-color: #3a3939;
+        text-align: center;
+        padding: 10px;
+        cursor: default;
+      }
+    }
+  }
+
+  .song-title {
+    padding-left: 26px;
+  }
+
+  .song-length {
+    margin-left: -6px;
+  }
+
+  .song-date {
+    float: right;
+    padding-right: 37px;
+  }
+
+  .song-item {
+    color: white;
+    background-color: black;
+    padding: 10px 17px 0;
+    cursor: pointer;
+
+    .title {
+      margin: 0;
+      padding-left: 10px;
+    }
+    
+    .date-added {
+      float: right;
+      padding-right: 10px;
+    }
+  }
+
+  .playing {
+    background-color: $accent !important;
+  }
+  
+  .btns {
+    button {
+      font-size: 17px;
+      float: right;
+      margin-left: 15px;
+    }
+  }
+}
+
+.upload-song-modal, .delete-song-modal, .update-song-modal  {
+  .modal-content {
+    padding: 15px;
+    background-color: #3a3939;
+    
+    .modal-title {
+      font-size: 20px;
+      color: $accent;
+    }
+
+    form {
+      margin-top: 15px;
+
+      input {
+        background-color: $dark-grey !important;
+        border-color: $dark-grey !important;
+        box-shadow: none !important;
+        color: white !important;
+      }
+
+      .upload {
+        cursor: pointer;
+        color: white;
+        background-color: #21ce99;
+      }
+
+      .file-upload {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+      }
+
+      .upload-total {
+        color: white;
+        display: inline;
+        padding-left: 5px;
+      }
+
+      .upload-submit {
+        background-color: $accent;
+        color: white;
+        float: right;
+      }
+
+      .cancel {
+        background: none;
+        float: right;
+
+        &:hover {
+          color: $light-grey;
+        }
+      }
+    }
+  }
+}
+
+.center {
+  text-align: center;
+  margin-top: -1px;
+}
+
+@media (max-width: 360px) {
+  .content {
+    margin-top: 40px !important;
+
+    .container {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      width: 100%;
+    }
+
+    .song-item {
+      padding: 10px 17px 10px !important;
+    }
+  }
+}
