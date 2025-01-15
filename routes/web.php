@@ -6,7 +6,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/convert', 'MusicController@convert')->name('convert');
 
     Route::get('/login', 'Auth\LoginController@redirectToGoogle')->name('google.login');
-    Route::get('/auth/google/callback', 'Auth\LoginController@googleCallback')->name('google.callback');;
+    Route::get('/auth/google/callback', 'Auth\LoginController@googleCallback')->name('google.callback');
 
 
 

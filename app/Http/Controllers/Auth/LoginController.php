@@ -11,18 +11,23 @@ class LoginController extends Controller
     /**
      * Google OAuth callback. Creates new user if they don't exist
      */
+    
     public function googleCallback()
     {
-            $google_user = $this->socialite()->user();
-    // dd( config('services.email'));
-        if ($google_user->email == config('services.email')) {
-            $user = new User;
-            $user->email = $google_user->email;
-
-            Auth::login($user, true);
+        try {
+            $googleUser = \Socialite::driver('google')->stateless()->user();
+            if ($googleUser->email == config('services.email')) {
+                $user = new User;
+                $user->email = $googleUser->email;
+    
+                Auth::login($user, true);
+            }
+    
+            return redirect()->route('show.index');
+        } catch (\Exception $e) {
+            \Log::error('Google OAuth Error: ' . $e->getMessage());
+            return redirect()->route('google.login')->with('error', 'Authentication failed!');
         }
-
-        return redirect()->route('show.index');
     }
 
     /**
